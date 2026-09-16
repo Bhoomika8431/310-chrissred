@@ -21,6 +21,13 @@ const { title = "Tailspin Toys" } = Astro.props;
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <script is:inline>
+            const highContrastStorageKey = 'tailspin-high-contrast';
+
+            if (window.localStorage.getItem(highContrastStorageKey) === 'true') {
+                document.documentElement.classList.add('high-contrast');
+            }
+        </script>
     </head>
     <body class="min-h-screen bg-slate-900 text-white transition-colors duration-300 m-0 w-full h-full font-sans">
         <Header />
@@ -45,5 +52,53 @@ const { title = "Tailspin Toys" } = Astro.props;
     body {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
+    }
+
+    html.high-contrast body {
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+
+    html.high-contrast header,
+    html.high-contrast nav {
+        background-color: #000 !important;
+        background-image: none !important;
+        border: 2px solid #fff;
+    }
+
+    html.high-contrast [class*="bg-slate-"],
+    html.high-contrast [class*="bg-blue-"],
+    html.high-contrast [class*="bg-purple-"],
+    html.high-contrast [class*="bg-gradient-"] {
+        background-color: #000 !important;
+        background-image: none !important;
+    }
+
+    html.high-contrast [class*="text-slate-"],
+    html.high-contrast [class*="text-blue-"],
+    html.high-contrast [class*="text-purple-"],
+    html.high-contrast [class*="text-yellow-"] {
+        color: #fff !important;
+    }
+
+    html.high-contrast [class*="border-"] {
+        border-color: #fff !important;
+    }
+
+    html.high-contrast a {
+        color: #ffff00 !important;
+    }
+
+    html.high-contrast button,
+    html.high-contrast select {
+        background-color: #000 !important;
+        color: #fff !important;
+        border: 2px solid #fff !important;
+    }
+
+    html.high-contrast :focus-visible {
+        outline: 3px solid #ffff00 !important;
+        outline-offset: 3px;
+        box-shadow: none !important;
     }
 </style>
