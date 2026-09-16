@@ -2,11 +2,11 @@
 import Menu from '../assets/icons/menu.svg';
 ---
 
-<header class="bg-blue-500 dark:bg-blue-700 text-white p-4 shadow-md transition-colors duration-300">
+<header class="bg-blue-700 text-white p-4 shadow-md transition-colors duration-300">
   <div class="container mx-auto flex justify-between items-center pl-4 pr-4">
     <div class="flex items-center">
       <div class="relative group">
-        <button id="menu-toggle" class="focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-500 rounded mr-4" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu">
+        <button id="menu-toggle" class="focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-700 rounded mr-4" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu">
           <Menu class="h-6 w-6" aria-hidden="true" />
         </button>
         <nav id="menu" aria-label="Main" class="hidden absolute left-0 mt-2 w-48 bg-white dark:bg-slate-800 text-slate-800 dark:text-white rounded shadow-lg z-10 transition-colors duration-300">
@@ -17,6 +17,16 @@ import Menu from '../assets/icons/menu.svg';
         </nav>
       </div>
       <div class="text-xl font-bold"><a href="/" class="hover:underline">Tailspin Toys</a></div>
+      <button
+        type="button"
+        id="high-contrast-toggle"
+        class="rounded px-3 py-2 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-700"
+        aria-label="High contrast mode"
+        aria-pressed="false"
+        data-testid="high-contrast-toggle"
+      >
+        <span>High contrast</span>
+      </button>
     </div>
   </div>
 </header>
@@ -55,5 +65,23 @@ import Menu from '../assets/icons/menu.svg';
         menuToggle.focus();
       }
     });
+  }
+
+  const highContrastToggle = document.getElementById('high-contrast-toggle');
+  const highContrastStorageKey = 'tailspin-high-contrast';
+
+  if (highContrastToggle instanceof HTMLButtonElement) {
+    const updateHighContrastState = () => {
+      const isHighContrast = document.documentElement.classList.contains('high-contrast');
+      highContrastToggle.setAttribute('aria-pressed', String(isHighContrast));
+    };
+
+    highContrastToggle.addEventListener('click', () => {
+      const isHighContrast = document.documentElement.classList.toggle('high-contrast');
+      window.localStorage.setItem(highContrastStorageKey, String(isHighContrast));
+      updateHighContrastState();
+    });
+
+    updateHighContrastState();
   }
 </script>
